@@ -1,0 +1,33 @@
+.Visitors{
+  background-color: royalblue;
+  text-align: center;
+  border-radius: 1rem;
+  padding: .4rem;
+  color: white;
+}
+
+.Visitors:hover {
+  cursor: pointer;
+  box-shadow: 1px 12px 17px -4px rgba(65,105,225,0.7);
+}
+
+.Visitors>h3{
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.Visitors>.p1 {
+  color: gainsboro;
+  font-size: 13px;
+}
+
+.Visitors>.p2{
+  font-size: 20px !important;
+  font-weight: bold;
+} 
+
+.Visitors>.p2>span {
+  color: gainsboro;
+  font-size: 13px;
+}
+

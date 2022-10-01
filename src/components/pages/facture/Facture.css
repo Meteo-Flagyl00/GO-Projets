@@ -1,0 +1,34 @@
+.tableFact{ 
+  background-color: #FAF9F6;
+
+}
+
+.inpSearch {
+  display: flex;
+  width: 60%;
+  gap: 1rem;
+}
+
+.fact-search {
+  width: 70%;
+  border: 1px solid;
+  border-radius: .5rem;
+  color: #000000;
+}
+
+
+.table-search{
+  display: flex;
+  height: 80vh;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  background-color: #FAF9F6;
+  padding: 2rem auto;
+  margin-top: 2rem;
+}
+
+.factTable {
+  margin-top: 2rem;
+  width: 100%;
+}

@@ -1,0 +1,13 @@
+.maindash {
+  display: flex;
+  margin-left: 1rem;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow: visible;
+}
+
+.rightSide {
+  position: absolute;
+  right: 60px;
+  top: 10px;
+}

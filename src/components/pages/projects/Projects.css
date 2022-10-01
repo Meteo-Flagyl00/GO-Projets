@@ -1,0 +1,45 @@
+.Projects{ 
+  background-color: #FAF9F6;
+}
+
+h1 {
+  font-weight: 600;
+  letter-spacing: .09rem;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  margin-left: 2.5rem;
+}
+
+
+.search-table {
+  display: flex;
+  margin-top: 1rem;
+  /* height: 80vh; */
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  background-color: #FAF9F6;
+  padding: 2rem auto;
+  margin-top: 2rem;
+}
+
+.inpSrch {
+  width: 60%;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.project-search {
+  width: 50%;
+  border: 1px solid;
+  border-radius: .5rem;
+  color: #000000;
+}
+
+.tableProj {
+  margin-top: 2rem;
+  /* box-shadow: -1px 2px 0px 0px rgba(0,0,0,0.58); */
+}
