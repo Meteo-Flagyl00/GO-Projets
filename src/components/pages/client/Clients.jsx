@@ -80,7 +80,7 @@ function Clients() {
 
 
 
-  //axios
+  //get data from api 'axios'
 
   const [users, setUsers] = useState([]);
 
@@ -95,6 +95,8 @@ function Clients() {
         console.log(err);
       });
   });
+
+
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
