@@ -17,8 +17,9 @@ import RegistrationForm from "../../editClient/editClientInd";
 import BtnAddClient from "../client/btnAddClient/BtnAddClient";
 // import Pagination from "@mui/material/Pagination";
 // import { useEffect } from "react";
-// import axios from "axios";
+import axios from "axios";
 import "./ClientTable.css";
+
 
 function ClientTable({ users }) {
   const popover = (
@@ -49,6 +50,16 @@ function ClientTable({ users }) {
     e.preventDefault();
     setShow(true);
   };
+    // delete client by id
+    const clientDelete = (id, e) => {
+      e.preventDefault();
+      axios.delete('https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}')
+      .then(res => {
+        console.log('client deleted', res)
+        axios.post(`/users:${id}`)
+      })
+      .catch(err => console.log(err)) 
+    }
 
   const [search, setSearch] = useState("");
 
@@ -96,7 +107,7 @@ function ClientTable({ users }) {
             <th>Full Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>WebSite</th>
+            <th>Nationality</th>
             <th>Actions</th>
           </thead>
 
@@ -155,6 +166,7 @@ function ClientTable({ users }) {
                             <Button
                               variant="primary"
                               // onSubmit={this.handleSubmit}
+                              onClick={(e) => clientDelete(client.id, e) }
                             >
                               Yes
                             </Button>
