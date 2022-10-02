@@ -3,29 +3,29 @@ import { Grid, Paper, Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+
 
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
+import { handleBreakpoints } from "@mui/system";
 
 const RegistrationForm = () => {
-  const paperStyle = { padding: "0 15px 0 15px", width: 400 };
+  const paperStyle = { padding: "0 15px 0 15px", width: 500 };
   const btnStyle = { marginTop: 10 };
   const phoneRegExp = /^[0-9]{2}[0-9]{8}/;
   const passwordRegExp =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   const CIN = /^[A-Z][A-Z][0-9]/;
 
-  // let history = useNavigate();
-  // const [user, setUser] = useState({
-  //     firstName: "",
-  //     lastName: "",
-  //     email: "",
-  //     phoneNumber: '',
-  //     cin:'',
-  //     password: '',
-  //     confirmPassword:''
-  // });
+  const nationality = /[A-z] /;
+
+  let history = useNavigate();
+  const [user, setUser] = useState({
+      FullName:'',
+      Email: '',
+      Phone: '',
+      Nationality: ''
+  });
 
   // const { firstName, lastName, email, phoneNumber, cin, password, confirmPassword } = user;
   // const onInputChange = (e) => {
@@ -33,45 +33,43 @@ const RegistrationForm = () => {
   // };
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    cin: "",
-    password: "",
-    confirmPassword: "",
+    FullName:'',
+    Email: '',
+    Phone: '',
+    Nationality: ''
   };
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().min(3, "It's too short").required("Required"),
+    FullName: Yup.string().min(3, "It's too short").required("Required"),
 
-    lastName: Yup.string().min(3, "It's too short").required("Required"),
 
-    email: Yup.string().email("Enter valid email").required("Required"),
+
+    Email: Yup.string().email("Enter valid email").required("Required"),
     // phoneNumber: Yup.number().typeError("Enter valid Phone number").required("Required"),
-    phoneNumber: Yup.string()
+    Phone: Yup.string()
       .matches(phoneRegExp, "Enter valid Phone number")
       .required("Required"),
 
-    cin: Yup.string().matches(CIN, "Enter valid CIN code").required("Required"),
-
-    password: Yup.string()
-      .min(8, "Minimum characters should be 8")
-      .matches(
-        passwordRegExp,
-        "Password must have one upper, lower case, number, special symbol"
-      )
-      .required("Required"),
-
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Password not matches")
-      .required("Required"),
+      Nationality: Yup.string().min(3, "It's too short").required('required')
   });
 
-  // const onSubmit = async (e) => {
-  //     e.preventDefault();
-  //     await axios.post("https://jsonplaceholder.typicode.com/users", user);
-  //     history.push("/");
-  //   };
+  const onSubmit = async (e) => {
+      e.preventDefault();
+      await axios.post("https://6336d4765327df4c43ca66a2.mockapi.io/users", {
+        FullName: user.FullName,
+        Email: user.Email,
+        Phone: user.Phone,
+        website: user.WebSite
+      }).then(()=>{
+        history.push('/Clients')
+      })
+    };
+
+    function handle(e) {
+      const newData = {...user}
+      newData[e.target.id] = e.target.value;
+      setUser(newData)
+      console.log(newData)
+    }
 
   return (
     <Grid>
@@ -81,7 +79,27 @@ const RegistrationForm = () => {
             Fill the form to add a Client{" "}
           </Typography>
         </Grid>
-        <Formik
+        <form onSubmit={(e)=> onSubmit(e)} style={{display: "flex", gap:"1rem", flexDirection:"column"}}
+        >
+
+          <input className="inp" placeholder="Name" type="text" onChange={(e)=> handle(e)} id="FullName" value={user.FullName}/>
+
+          <input className="inp" placeholder="Email" type="text" onChange={(e)=> handle(e)} id="Email" value={user.Email}/>
+
+          <input className="inp" placeholder="Phone" type="text" onChange={(e)=> handle(e)} id="Phone" value={user.Phone}/>
+
+          <input className="inp" placeholder="nationality" type="text" onChange={(e)=> handle(e)} id="Nationality" value={user.Nationality}/>
+
+          <Button
+                type="submit"
+                style={btnStyle}
+                variant="contained"
+                color="primary"
+              >
+                Register
+          </Button>
+        </form>
+        {/* <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values) => {
@@ -90,16 +108,17 @@ const RegistrationForm = () => {
         >
           {(props) => (
             <Form noValidate>
-              {/* <TextField label='Name' name="name" fullWidth value={props.values.name}
-                    onChange={props.handleChange} /> */}
+              <TextField label='Name' name="name" fullWidth value={props.values.name}
+                    onChange={props.handleChange} />
 
               <Field
                 as={TextField}
-                name="firstname"
-                label="firstName"
+                name="FullName"
+                label="FullName"
+                onChange={(e) => handle(e)}
                 fullWidth
-                error={props.errors.name && props.touched.name}
-                helperText={<ErrorMessage name="firstname" />}
+                error={props.errors.FullName && props.touched.FullName}
+                helperText={<ErrorMessage name="FullName" />}
                 required
               />
 
@@ -113,26 +132,28 @@ const RegistrationForm = () => {
                 required
               />
 
-              {/* <TextField label='Email' name='email' type='Email' fullWidth 
-                    {...props.getFieldProps('email')}/> */}
+              <TextField label='Email' name='email' type='Email' fullWidth 
+                    {...props.getFieldProps('email')}/>
 
               <Field
                 as={TextField}
-                name="email"
+                name="Email"
                 label="Email"
+                onChange={(e) => handle(e)}
                 fullWidth
-                error={props.errors.email && props.touched.email}
-                helperText={<ErrorMessage name="email" />}
+                error={props.errors.Email && props.touched.Email}
+                helperText={<ErrorMessage name="Email" />}
                 required
               />
 
               <Field
                 as={TextField}
-                name="phoneNumber"
+                name= "Phone"
                 label="Phone Number"
+                onChange={(e) => handle(e)}
                 fullWidth
-                error={props.errors.phoneNumber && props.touched.phoneNumber}
-                helperText={<ErrorMessage name="phoneNumber" />}
+                error={props.errors.Phone && props.touched.Phone}
+                helperText={<ErrorMessage name="Phone" />}
                 required
               />
 
@@ -170,6 +191,19 @@ const RegistrationForm = () => {
                 required
               />
 
+              <Field
+                as={TextField}
+                name="Nationality"
+                label="Nationality"
+                onChange={(e) => handle(e)}
+                fullWidth
+                error={
+                  props.errors.Nationality && props.touched.Nationality
+                }
+                helperText={<ErrorMessage name="Nationality" />}
+                required
+                />
+
               <Button
                 type="submit"
                 style={btnStyle}
@@ -180,7 +214,7 @@ const RegistrationForm = () => {
               </Button>
             </Form>
           )}
-        </Formik>
+        </Formik> */}
       </Paper>
     </Grid>
   );
