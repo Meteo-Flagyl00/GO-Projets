@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Paper, Button, Typography } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
+// import { TextField } from "@mui/material";
+// import { Formik, Form, Field, ErrorMessage } from "formik";
+// import * as Yup from "yup";
+// import { handleBreakpoints } from "@mui/system";
+// import {Link} from 'react-router-dom'
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { handleBreakpoints } from "@mui/system";
+
 
 const RegistrationForm = () => {
   const paperStyle = { padding: "0 15px 0 15px", width: 500 };
   const btnStyle = { marginTop: 10 };
-  const phoneRegExp = /^[0-9]{2}[0-9]{8}/;
-  const passwordRegExp =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-  const CIN = /^[A-Z][A-Z][0-9]/;
+  // const phoneRegExp = /^[0-9]{2}[0-9]{8}/;
+  // const passwordRegExp =
+  //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  // const CIN = /^[A-Z][A-Z][0-9]/;
 
-  const nationality = /[A-z] /;
+  // const nationality = /[A-z] /;
 
   let history = useNavigate();
   const [user, setUser] = useState({
@@ -32,35 +34,35 @@ const RegistrationForm = () => {
   //   setUser({ ...user, [e.target.firstName]: e.target.value });
   // };
 
-  const initialValues = {
-    FullName:'',
-    Email: '',
-    Phone: '',
-    Nationality: ''
-  };
-  const validationSchema = Yup.object().shape({
-    FullName: Yup.string().min(3, "It's too short").required("Required"),
+  // const initialValues = {
+  //   FullName:'',
+  //   Email: '',
+  //   Phone: '',
+  //   Nationality: ''
+  // };
+  // const validationSchema = Yup.object().shape({
+  //   FullName: Yup.string().min(3, "It's too short").required("Required"),
 
 
 
-    Email: Yup.string().email("Enter valid email").required("Required"),
-    // phoneNumber: Yup.number().typeError("Enter valid Phone number").required("Required"),
-    Phone: Yup.string()
-      .matches(phoneRegExp, "Enter valid Phone number")
-      .required("Required"),
+  //   Email: Yup.string().email("Enter valid email").required("Required"),
+  //   // phoneNumber: Yup.number().typeError("Enter valid Phone number").required("Required"),
+  //   Phone: Yup.string()
+  //     .matches(phoneRegExp, "Enter valid Phone number")
+  //     .required("Required"),
 
-      Nationality: Yup.string().min(3, "It's too short").required('required')
-  });
+  //     Nationality: Yup.string().min(3, "It's too short").required('required')
+  // });
 
-  const onSubmit = async (e) => {
+  const getClients = async (e) => {
       e.preventDefault();
       await axios.post("https://6336d4765327df4c43ca66a2.mockapi.io/users", {
         FullName: user.FullName,
         Email: user.Email,
         Phone: user.Phone,
-        website: user.WebSite
+        Nationality: user.Nationality
       }).then(()=>{
-        history.push('/Clients')
+        history.push('/ClientTable')
       })
     };
 
@@ -71,6 +73,8 @@ const RegistrationForm = () => {
       console.log(newData)
     }
 
+    // refresh dataTable
+
   return (
     <Grid>
       <Paper elevation={0} style={paperStyle}>
@@ -79,24 +83,58 @@ const RegistrationForm = () => {
             Fill the form to add a Client{" "}
           </Typography>
         </Grid>
-        <form onSubmit={(e)=> onSubmit(e)} style={{display: "flex", gap:"1rem", flexDirection:"column"}}
+
+        <form
+          onSubmit={(e) => getClients(e)}
+          style={{ display: "flex", gap: "1rem", flexDirection: "column" }}
         >
+          <label>Full Name</label>
+          <input
+            className="inp"
+            placeholder="Name"
+            type="text"
+            onChange={(e) => handle(e)}
+            id="FullName"
+            value={user.FullName}
+          />
 
-          <input className="inp" placeholder="Name" type="text" onChange={(e)=> handle(e)} id="FullName" value={user.FullName}/>
+          <label>Email</label>
+          <input
+            className="inp"
+            placeholder="Email"
+            type="text"
+            onChange={(e) => handle(e)}
+            id="Email"
+            value={user.Email}
+          />
 
-          <input className="inp" placeholder="Email" type="text" onChange={(e)=> handle(e)} id="Email" value={user.Email}/>
+          <label>Phone Number</label>
+          <input
+            className="inp"
+            placeholder="Phone"
+            type="text"
+            onChange={(e) => handle(e)}
+            id="Phone"
+            value={user.Phone}
+          />
 
-          <input className="inp" placeholder="Phone" type="text" onChange={(e)=> handle(e)} id="Phone" value={user.Phone}/>
-
-          <input className="inp" placeholder="nationality" type="text" onChange={(e)=> handle(e)} id="Nationality" value={user.Nationality}/>
+          <label>Nationality</label>
+          <input
+            className="inp"
+            placeholder="Nationality"
+            type="text"
+            onChange={(e) => handle(e)}
+            id="Nationality"
+            value={user.Nationality}
+          />
 
           <Button
-                type="submit"
-                style={btnStyle}
-                variant="contained"
-                color="primary"
-              >
-                Register
+            type="submit"
+            style={btnStyle}
+            variant="contained"
+            color="primary"
+          >
+            Register
           </Button>
         </form>
         {/* <Formik
