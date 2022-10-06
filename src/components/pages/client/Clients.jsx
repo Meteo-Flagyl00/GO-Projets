@@ -23,9 +23,6 @@ import ClientTable from "../clientTable/ClientTable";
 // import TablePagination from '@mui/material/TablePagination';
 
 function Clients() {
-
-
-
   // const [clients, setClients] = useState(userData);
 
   // DEl client button
@@ -42,7 +39,7 @@ function Clients() {
   //del item
 
   // const [deleteId, setDeleteId] = useState("");
-  // const [sho, setSho] = useState(false);
+  // const [show, setShow] = useState(false);
 
   // const handleFermer = () => {
   //     setShow(false);
@@ -77,9 +74,6 @@ function Clients() {
   //     });
   // };
 
-
-
-
   //get data from api 'axios'
 
   const [users, setUsers] = useState([]);
@@ -96,12 +90,9 @@ function Clients() {
       });
   });
 
-
-
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [UsersPerPage] = useState(5);
-
 
   // Get current clients
   const indexOfLastUser = currentPage * UsersPerPage;
@@ -111,8 +102,8 @@ function Clients() {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // search 
-    // const __handleSearch = (event) => {
+  // search
+  // const __handleSearch = (event) => {
   //   setSearch(event.target.value);
   //   if (event.target.value !== "") {
   //     let search_results = userData.filter(
@@ -125,8 +116,6 @@ function Clients() {
   //     setClients(userData);
   //   }
   // };
-
- 
 
   return (
     <div className="ClTable">
