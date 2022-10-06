@@ -71,23 +71,22 @@
   border: none;
   background: none;
 }
+.btnUserDel:hover {
+  color: red;
+}
+
 
 .btnUserEdi {
   border: none;
   background: none;
 }
+.btnUserEdi:hover {
+  color: orange;
+}
 
 .btnUserVie {
   border: none;
   background: none;
-}
-
-.btnUserDel:hover {
-  color: red;
-}
-
-.btnUserEdi:hover {
-  color: orange;
 }
 
 .btnUserVie:hover {
