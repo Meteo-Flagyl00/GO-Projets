@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UilTrash, UilEye, UilEllipsisH } from "@iconscout/react-unicons";
 
 import Button from "react-bootstrap/Button";
@@ -11,77 +11,47 @@ import Popover from "react-bootstrap/Popover";
 
 import { Table } from "react-bootstrap";
 
-import CustomizedDialogs from "../../editClient/editClientDia";
-import RegistrationForm from "../../editClient/editClientInd";
+
 
 import BtnAddClient from "../client/btnAddClient/BtnAddClient";
 // import Pagination from "@mui/material/Pagination";
 // import { useEffect } from "react";
 import axios from "axios";
 import "./ClientTable.css";
-
+import { useNavigate, Link, useParams } from "react-router-dom";
+import BtnEditClient from "../../editClient/BtnEditClient";
 
 function ClientTable({ users }) {
-  const popover = (
-    <Popover id="popover-basic">
-      <Popover.Header as="h3">
-        Client Infos
-        <Button variant="" className="morePr">
-          {" "}
-          <UilEllipsisH />
-        </Button>
-      </Popover.Header>
-      <Popover.Body>
-        <div className="More-info">
-          <p>aaaaaaaaaaaaa</p>
-          <p>dddddddddddddddddd</p>
-        </div>
-      </Popover.Body>
-    </Popover>
-  );
 
-  // DEl client button
+  const {id} = useParams();
 
-  const [show, setShow] = useState(false);
+  const [user, setUser] = useState({
+    FullName: "",
+    Email: "",
+    Phone: "",
+    Nationality: "",
+  });
 
-  const handleClose = () => setShow(false);
+  //delete request with axios
 
-  const handleShow = (e) => {
-    e.preventDefault();
-    setShow(true);
+  const loadUser = async () => {
+    const result = await axios.get(
+      `https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}`
+    );
+    setUser(result.data);
   };
-    // delete client by id
-    const clientDelete = (id, e) => {
-      e.preventDefault();
-      axios.delete('https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}')
-      .then(res => {
-        console.log('client deleted', res)
-        axios.post(`/users:${id}`)
-      })
-      .catch(err => console.log(err)) 
-    }
+
+  const handleClick = async (id) => {
+    await axios
+      .delete(`https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}`)
+      .then((res) => {
+        console.log("Client deleted ,id:" + id, res);
+      });
+    loadUser();
+  };
 
   const [search, setSearch] = useState("");
 
-  // delete
-  // state = {
-  //   id: "",
-  // };
-
-  // handleChange = event => {
-  //   this.setState({ id: event.target.value });
-  // }
-
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   axios
-  //     .delete(`https://jsonplaceholder.typicode.com/users/${this.state.id}`)
-  //     .then((res) => {
-  //       console.log(res);
-  //       console.log(res.data);
-  //     });
-  // };
   return (
     <div>
       <div className="btnAddCl">
@@ -141,8 +111,12 @@ function ClientTable({ users }) {
                   </td>
                   <td>
                     <span>
-                      <button className="btnUserDel">
-                        <Button variant="" onClick={handleShow}>
+                      <button
+                        className="btnUserDel"
+                        onClick={() => handleClick(client.id)}
+                      >
+                        <UilTrash />
+                        {/* <Button variant="" onClick={handleShow}>
                           <UilTrash />
                         </Button>
 
@@ -171,26 +145,25 @@ function ClientTable({ users }) {
                               Yes
                             </Button>
                           </Modal.Footer>
-                        </Modal>
+                        </Modal> */}
                       </button>
 
-                      <button className="btnUserEdi">
-                        <CustomizedDialogs title={"Edit Client"}>
-                          <RegistrationForm />
-                        </CustomizedDialogs>
-                      </button>
+                      <Link
+                        className="btnUserEdi"
+                        to={`/Clients/Client/${client.id}`}
+                      >
+                        <BtnEditClient />
+                      </Link>
 
-                      <button className="btnUserVie">
-                        <OverlayTrigger
-                          trigger="click"
-                          placement="bottom"
-                          overlay={popover}
-                        >
-                          <Button variant="">
-                            <UilEye />
-                          </Button>
-                        </OverlayTrigger>
-                      </button>
+                      <Link
+                        className="btnUserVie"
+                        variant=""
+                        to={`/Clients/ViewClient/${client.id}`}
+                      >
+                        <Button variant="">
+                          <UilEye />
+                        </Button>
+                      </Link>
                     </span>
                   </td>
                 </tr>
