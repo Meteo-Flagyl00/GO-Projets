@@ -1,3 +1,12 @@
 .cltb{
   margin-top: 1rem;
 }
+
+.btnUserEdi {
+  border: none;
+  background: none;
+  color: black;
+}
+.btnUserEdi:hover {
+  color: orange;
+}
