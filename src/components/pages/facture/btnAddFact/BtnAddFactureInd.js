@@ -9,7 +9,7 @@ import * as Yup from "yup";
 
 const RegistrationForm = () => {
     const paperStyle = { height:'100vh', padding: '60px 100px 15px 60px', width: '100%', }
-    const btnStyle = { marginTop: 10 }
+    const btnStyle = { marginTop: 10 , marginRight: 10}
     const phoneRegExp=/^[0-9]{2}[0-9]{8}/
     const passwordRegExp=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
     const CIN= /^[A-Z][A-Z][0-9]/
@@ -116,6 +116,11 @@ const RegistrationForm = () => {
 
                             <Button type='submit' style={btnStyle} variant='contained'
                                 color='primary'>Register</Button>
+
+                            <Button typr="print" 
+                            style={btnStyle} 
+                            variant='contained' 
+                            onClick={() => window.print()}>PRINT</Button>
                         </Form>
                     )}
                 </Formik>
