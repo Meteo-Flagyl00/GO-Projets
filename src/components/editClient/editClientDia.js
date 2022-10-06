@@ -62,19 +62,20 @@ export default function CustomizedDialogs({children,title}) {
   return (
     <div>
       <Button variant="" onClick={handleClickOpen}>
-        <UilEdit/>
+        <UilEdit />
       </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
           {title}
         </BootstrapDialogTitle>
-        <DialogContent dividers>
-          {children}
-        </DialogContent>
+        <DialogContent dividers>{children}</DialogContent>
         {/* <DialogActions>
           <Button autoFocus onClick={handleClose}>
             Add
