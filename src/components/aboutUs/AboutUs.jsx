@@ -7,7 +7,7 @@ function AboutUs() {
   
   return (
     <div className='aboutus'>
-      <h1>WebSite Infos </h1> 
+      
       <div className="Visitors">
         <h3>This month Visitors:</h3>
         <p className='p1'>This month your Website was visited by:</p>
@@ -31,10 +31,10 @@ function AboutUs() {
         /> */}
       </div>
 
-      <h2>Team:</h2>
+      {/* <h2>Team:</h2>
       <div className="Team">
         something 2
-      </div>
+      </div> */}
     </div>
     
   )
