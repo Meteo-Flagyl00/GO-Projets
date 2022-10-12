@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
-const RegistrationForm = () => {
+const RegistrationForm = ({handleClose}) => {
   const paperStyle = { padding: "0 15px 0 15px", width: 500 };
   const btnStyle = { marginTop: 10 };
   // const phoneRegExp = /^[0-9]{2}[0-9]{8}/;
@@ -23,10 +23,11 @@ const RegistrationForm = () => {
 
   let history = useNavigate();
   const [user, setUser] = useState({
-      FullName:'',
-      Email: '',
-      Phone: '',
-      Nationality: ''
+      first_name:'',
+      last_name:'',
+      email: '',
+      phone: '',
+      nationality: ''
   });
 
   // const { firstName, lastName, email, phoneNumber, cin, password, confirmPassword } = user;
@@ -54,17 +55,19 @@ const RegistrationForm = () => {
   //     Nationality: Yup.string().min(3, "It's too short").required('required')
   // });
 
-  const getClients = async (e) => {
+  const getClients = (e) => {
       e.preventDefault();
-      await axios.post("https://6336d4765327df4c43ca66a2.mockapi.io/users", {
-        FullName: user.FullName,
-        Email: user.Email,
-        Phone: user.Phone,
-        Nationality: user.Nationality
+      axios.post("http://localhost:8000/users", {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        phone: user.phone,
+        nationality: user.nationality
       }).then(()=>{
-        history.push('/ClientTable')
+        handleClose()
       })
     };
+    
 
     function handle(e) {
       const newData = {...user}
@@ -88,14 +91,24 @@ const RegistrationForm = () => {
           onSubmit={(e) => getClients(e)}
           style={{ display: "flex", gap: "1rem", flexDirection: "column" }}
         >
-          <label>Full Name</label>
+          <label>First Name</label>
           <input
             className="inp"
-            placeholder="Name"
+            placeholder="First Name"
             type="text"
             onChange={(e) => handle(e)}
-            id="FullName"
-            value={user.FullName}
+            id="first_name"
+            value={user.first_name}
+          />
+
+          <label>Last Name</label>
+          <input
+            className="inp"
+            placeholder="Last Name"
+            type="text"
+            onChange={(e) => handle(e)}
+            id="last_name"
+            value={user.last_name}
           />
 
           <label>Email</label>
@@ -104,8 +117,8 @@ const RegistrationForm = () => {
             placeholder="Email"
             type="text"
             onChange={(e) => handle(e)}
-            id="Email"
-            value={user.Email}
+            id="email"
+            value={user.email}
           />
 
           <label>Phone Number</label>
@@ -114,8 +127,8 @@ const RegistrationForm = () => {
             placeholder="Phone"
             type="text"
             onChange={(e) => handle(e)}
-            id="Phone"
-            value={user.Phone}
+            id="phone"
+            value={user.phone}
           />
 
           <label>Nationality</label>
@@ -124,8 +137,8 @@ const RegistrationForm = () => {
             placeholder="Nationality"
             type="text"
             onChange={(e) => handle(e)}
-            id="Nationality"
-            value={user.Nationality}
+            id="nationality"
+            value={user.nationality}
           />
 
           <Button
