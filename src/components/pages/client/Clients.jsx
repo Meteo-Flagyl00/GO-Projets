@@ -36,43 +36,7 @@ function Clients() {
   //   setShow(true);
   // };
 
-  //del item
 
-  // const [deleteId, setDeleteId] = useState("");
-  // const [show, setShow] = useState(false);
-
-  // const handleFermer = () => {
-  //     setShow(false);
-  // };
-  // const handleClickDelete = (id) => {
-  //     setDeleteId(id);
-  //     setShow(true);
-  // };
-  // const handleDeleteItem = () => {
-  //     setData((pre) => {
-  //     const newArray = [...pre];
-  //     return newArray.filter((item) => item._id !== deleteId);
-  //     });
-  //     setShow(false);
-  // };
-  // dummyjson
-
-  // const [data, getData] = useState([]);
-  // const URL = "https://dummyjson.com/users";
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = () => {
-  //   fetch(URL)
-  //     .then((res) => res.json())
-
-  //     .then((response) => {
-  //       console.log(response);
-  //       getData(response);
-  //     });
-  // };
 
   //get data from api 'axios'
 
@@ -80,7 +44,7 @@ function Clients() {
 
   useEffect(() => {
     axios
-      .get("https://6336d4765327df4c43ca66a2.mockapi.io/users")
+      .get("http://localhost:8000/users")
       .then((res) => {
         console.log(res);
         setUsers(res.data);
@@ -88,7 +52,8 @@ function Clients() {
       .catch((err) => {
         console.log(err);
       });
-  });
+  },[]);
+
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,6 +66,13 @@ function Clients() {
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const getPrevious  = () => {
+    setCurrentPage(currentPage - 1)
+}
+const getNext  = () => {
+    setCurrentPage(currentPage + 1)
+}
 
   // search
   // const __handleSearch = (event) => {
@@ -132,6 +104,7 @@ function Clients() {
             totalUsers={users.length}
             paginate={paginate}
           />
+          
         </div>
       </div>
     </div>
