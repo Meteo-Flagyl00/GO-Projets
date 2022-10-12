@@ -22,7 +22,7 @@ export default function BasicTable() {
 
   return (
     <div className="table">
-      <h1>Recent Clients</h1>
+      
     <TableContainer component={Paper}
     style={{boxShadow:'0 13px 20px 0 #00808029'}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
