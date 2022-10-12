@@ -8,20 +8,22 @@ import axios from 'axios'
 function ViewClient() {
 
   const [user, setUser] = useState({
-    FullName: "",
-    Email: "",
-    Phone: "",
-    Nationality: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    nationality: "",
+    Projects_done: ""
   });
   
   const {id} = useParams();
 
   useEffect(() => {
     loadUser();
-  }, []);
+  });
  
   const loadUser = async () => {
-    const result = await axios.get(`https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}`);
+    const result = await axios.get(`http://localhost:8000/users/${id}`);
     setUser(result.data);
   };
   return (
@@ -35,25 +37,33 @@ function ViewClient() {
               Details of client id:
               <ul className='list-group list-group-flush'>
                 <li className='list-group-item'>
-                  <b>Full Name: </b>
-                  {user.FullName}
+                  <b>First Name: </b>
+                  {user.first_name}
+                </li>
+                <li className='list-group-item'>
+                  <b>Last Name: </b>
+                  {user.last_name}
                 </li>
                 <li className='list-group-item'>
                   <b>Email: </b>
-                  {user.Email}
+                  {user.email}
                 </li>
                 <li className='list-group-item'>
                   <b>Phone Number: </b>
-                  {user.Phone}
+                  {user.phone}
                 </li>
                 <li className='list-group-item'>
                   <b>Nationality: </b>
-                  {user.Nationality}
+                  {user.nationality}
+                </li>
+                <li className='list-group-item'>
+                  <b>Projects: </b>
+                  {user.Projects_done}
                 </li>
               </ul>
             </div>
           </div>
-          <Link className="btn btn-primary my-2" to={"/Clients"}> Back to Home</Link>
+          <Link className="btn btn-primary my-2" to={`/Clients/`}> Back to Home</Link>
         </div>
       </div>
     </div>

@@ -9,6 +9,9 @@ import Popover from "react-bootstrap/Popover";
 
 // import userData from "../../data/MOCK_DATA.json";
 
+import CustomizedDialogs from "../../editClient/editClientDia";
+import RegistrationForm from "../../editClient/editClientInd";
+
 import { Table } from "react-bootstrap";
 
 
@@ -22,8 +25,7 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import BtnEditClient from "../../editClient/BtnEditClient";
 
 function ClientTable({ users }) {
-
-  const {id} = useParams();
+  const { id } = useParams();
 
   const [user, setUser] = useState({
     FullName: "",
@@ -36,21 +38,46 @@ function ClientTable({ users }) {
 
   const loadUser = async () => {
     const result = await axios.get(
-      `https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}`
+      `http://localhost:8000/users/${id}`
     );
     setUser(result.data);
   };
 
   const handleClick = async (id) => {
     await axios
-      .delete(`https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}`)
+      .delete(`http://localhost:8000/users/${id}`)
       .then((res) => {
         console.log("Client deleted ,id:" + id, res);
       });
     loadUser();
   };
 
+  useEffect(()=>{
+    handleClick(id)
+  },[])
+  
+
   const [search, setSearch] = useState("");
+
+  // delete modal
+
+  // const [show, setShow] = useState(false);
+
+  // const handleClose = () => setShow(false);
+
+  // const handleShow = (e) => {
+  //   e.preventDefault();
+  //   setShow(true);
+  // };
+
+  // const [open, setOpen] = React.useState(false);
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <div>
@@ -60,6 +87,7 @@ function ClientTable({ users }) {
           <div className="Client-search">
             <input
               type="text"
+              value={search}
               placeholder="Search.."
               className="search-input"
               onChange={(e) => {
@@ -74,7 +102,8 @@ function ClientTable({ users }) {
         <Table striped bordered hover>
           <thead>
             <th>ID</th>
-            <th>Full Name</th>
+            <th>First Name</th>
+            <th>Last name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Nationality</th>
@@ -87,7 +116,8 @@ function ClientTable({ users }) {
                 if (search === "") {
                   return item;
                 } else if (
-                  item.FullName.toLowerCase().includes(search.toLowerCase())
+                  item.first_name.toLowerCase().includes(search.toLowerCase()) ||
+                  item.last_name.toLowerCase().includes(search.toLowerCase())
                 ) {
                   return item;
                 }
@@ -98,61 +128,35 @@ function ClientTable({ users }) {
                     <span>{client.id}</span>
                   </td>
                   <td>
-                    <span>{client.FullName}</span>
+                    <span>{client.first_name}</span>
                   </td>
                   <td>
-                    <span>{client.Email}</span>
+                    <span>{client.last_name}</span>
                   </td>
                   <td>
-                    <span>{client.Phone}</span>
+                    <span>{client.email}</span>
                   </td>
                   <td>
-                    <span>{client.Nationality}</span>
+                    <span>{client.phone}</span>
+                  </td>
+                  <td>
+                    <span>{client.nationality}</span>
                   </td>
                   <td>
                     <span>
-                      <button
-                        className="btnUserDel"
-                        onClick={() => handleClick(client.id)}
-                      >
-                        <UilTrash />
-                        {/* <Button variant="" onClick={handleShow}>
+                      <button className="btnUserDel" onClick={() => handleClick(client.id)}>
                           <UilTrash />
-                        </Button>
-
-                        <Modal
-                          show={show}
-                          onHide={handleClose}
-                          backdrop="static"
-                          keyboard={false}
-                        >
-                          <Modal.Header closeButton>
-                            <Modal.Title>Delete client</Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            Be careful you are going to delete client infos. Do
-                            you want to proceed the process?
-                          </Modal.Body>
-                          <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                              Close
-                            </Button>
-                            <Button
-                              variant="primary"
-                              // onSubmit={this.handleSubmit}
-                              onClick={(e) => clientDelete(client.id, e) }
-                            >
-                              Yes
-                            </Button>
-                          </Modal.Footer>
-                        </Modal> */}
                       </button>
 
                       <Link
                         className="btnUserEdi"
-                        to={`/Clients/Client/${client.id}`}
+                        to={`/Clients/${client.id}`}
                       >
-                        <BtnEditClient />
+                        <CustomizedDialogs
+                          title={"Edit Client"}
+                        >
+                          <RegistrationForm />
+                        </CustomizedDialogs>
                       </Link>
 
                       <Link
