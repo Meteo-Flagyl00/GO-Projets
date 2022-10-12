@@ -18,10 +18,11 @@ const RegistrationForm = () => {
   //   const CIN = /^[A-Z][A-Z][0-9]/;
  
   const [user, setUser] = useState({
-    FullName: "",
-    Email: "",
-    Phone: "",
-    Nationality: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    nationality: "",
   });
 
   const { id } = useParams();
@@ -43,15 +44,14 @@ const RegistrationForm = () => {
   }, []);
 
   const onSubmit = async (e) => {
-    e.preventdefault();
-    await axios.put(`https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}`, user);
-    Navigate("/");
+    await axios.put(`http://localhost:8000/users/${id}`, user);
+    Navigate("/Clients");
   };
 
 
 
   const loadUser = async () => {
-    const result = await axios.get(`https://6336d4765327df4c43ca66a2.mockapi.io/users/${id}`);
+    const result = await axios.get(`http://localhost:8000/users/${id}`);
     setUser(result.data);
   };
 
@@ -92,7 +92,6 @@ const RegistrationForm = () => {
           </Grid>
 
           <form
-            onSubmit={(e) => onSubmit(e)}
             style={{ display: "flex", gap: ".5rem", flexDirection: "column" }}
           >
             <label>Full Name</label>
@@ -101,8 +100,18 @@ const RegistrationForm = () => {
               placeholder="Name"
               type="text"
               onChange={(e) => handle(e)}
-              id="FullName"
-              value={user.FullName}
+              id="first_name"
+              value={user.first_name}
+            />
+
+            <label>Full Name</label>
+            <input
+              className="inp"
+              placeholder="Name"
+              type="text"
+              onChange={(e) => handle(e)}
+              id="last_name"
+              value={user.last_name}
             />
 
             <label>Email</label>
@@ -111,8 +120,8 @@ const RegistrationForm = () => {
               placeholder="Email"
               type="text"
               onChange={(e) => handle(e)}
-              id="Email"
-              value={user.Email}
+              id="email"
+              value={user.email}
             />
 
             <label>Phone Number</label>
@@ -121,8 +130,8 @@ const RegistrationForm = () => {
               placeholder="Phone"
               type="text"
               onChange={(e) => handle(e)}
-              id="Phone"
-              value={user.Phone}
+              id="phone"
+              value={user.phone}
             />
 
             <label>Nationality</label>
@@ -131,12 +140,12 @@ const RegistrationForm = () => {
               placeholder="Nationality"
               type="text"
               onChange={(e) => handle(e)}
-              id="Nationality"
-              value={user.Nationality}
+              id="nationality"
+              value={user.nationality}
             />
             <div className="btnEdit">
               <Button
-                type="submit"
+                onClick={(e) => onSubmit(e)}
                 style={btnStyle}
                 variant="contained"
                 color="primary"
