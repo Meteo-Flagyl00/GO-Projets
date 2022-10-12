@@ -21,11 +21,11 @@ function App() {
         <Routes>
           <Route path="/" element={<MainDash />} />
           <Route path="/Clients" element={<Clients />} />
-          <Route path="/Clients/Client/:id" element={<RegistrationForm />} />
+          <Route path="/Clients/:id" element={<RegistrationForm />} />
           <Route path="/Facture" element={<Facture />} />
           <Route path="/Projects" element={<Projects />} />
           <Route path="/NewFacture" element={<NewFacture />} />
-          <Route path="/Clients/ViewClient/:id" element={<ViewClient/>}/>
+          <Route path="/Clients/ViewClient/:id" element={<ViewClient />} />
         </Routes>
       </div>
     </div>
