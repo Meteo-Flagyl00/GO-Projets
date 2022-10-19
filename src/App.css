@@ -9,9 +9,9 @@
 .AppGlass {
   display: grid;
   /* position: fixed; */
-  height: 100vh;
-  width: 100%;
-  /* border-radius: 2rem; */
+  height: 99vh;
+  width: 99%;
+  border-radius: 1.3rem;
   background-color: gainsboro;
   overflow: hidden;
   grid-template-columns: 13rem 2fr;
