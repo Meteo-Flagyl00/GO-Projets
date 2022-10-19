@@ -1,8 +1,9 @@
 .grid-container {
+  width: 100%;
   padding: 10px;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  column-gap: 30px;
+  column-gap: 20px;
 }
 
 .maindash {
@@ -10,9 +11,9 @@
   margin-left: 1rem;
   flex-direction: column;
   justify-content: space-evenly;
-  overflow: visible;
+  /* overflow: visible; */
 }
 
 .rightSide {
-  padding: 1rem 0 0 0;
+  padding: 1rem;
 }
