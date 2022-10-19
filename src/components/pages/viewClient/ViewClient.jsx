@@ -19,13 +19,15 @@ function ViewClient() {
   const {id} = useParams();
 
   useEffect(() => {
+    const loadUser = async () => {
+      const result = await axios.get(`http://localhost:8000/users/${id}`);
+      setUser(result.data);
+    };
     loadUser();
-  });
+  }, []);
+  
  
-  const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8000/users/${id}`);
-    setUser(result.data);
-  };
+
   return (
     <div className='container'>
       <div className='row'>
@@ -63,7 +65,7 @@ function ViewClient() {
               </ul>
             </div>
           </div>
-          <Link className="btn btn-primary my-2" to={`/Clients/`}> Back to Home</Link>
+          <Link className="btn btn-primary my-2" to={`/Clients`}> Back to Home</Link>
         </div>
       </div>
     </div>
