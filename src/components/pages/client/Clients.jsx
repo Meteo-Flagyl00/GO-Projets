@@ -23,21 +23,6 @@ import ClientTable from "../clientTable/ClientTable";
 // import TablePagination from '@mui/material/TablePagination';
 
 function Clients() {
-  // const [clients, setClients] = useState(userData);
-
-  // DEl client button
-
-  // const [show, setShow] = useState(false);
-
-  // const handleClose = () => setShow(false);
-
-  // const handleShow = (e) => {
-  //   e.preventDefault();
-  //   setShow(true);
-  // };
-
-
-
   //get data from api 'axios'
 
   const [users, setUsers] = useState([]);
@@ -52,8 +37,7 @@ function Clients() {
       .catch((err) => {
         console.log(err);
       });
-  },[]);
-
+  }, []);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,13 +50,6 @@ function Clients() {
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const getPrevious  = () => {
-    setCurrentPage(currentPage - 1)
-}
-const getNext  = () => {
-    setCurrentPage(currentPage + 1)
-}
 
   // search
   // const __handleSearch = (event) => {
@@ -89,6 +66,26 @@ const getNext  = () => {
   //   }
   // };
 
+  // search through all pagination pages
+
+  // const pageCount = Math.ceil(
+  //   clients.filter((client) => {
+  //     if (searchTerm === "") {
+  //       return client;
+  //     } else if (
+  //       client.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       client.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+  //     ) {
+  //       return client;
+  //     }
+  //     return false;
+  //   }).length / UsersPerPage
+  // );
+
+  // const handlePageChange = ({ selected }) => {
+  //   setPageNumber(selected);
+  // };
+
   return (
     <div className="ClTable">
       <h1>Clients List</h1>
@@ -100,11 +97,13 @@ const getNext  = () => {
         </div>
         <div className="pagination">
           <Pagination
+            // onPageChange={handlePageChange}
             UsersPerPage={UsersPerPage}
             totalUsers={users.length}
             paginate={paginate}
+            marginPagesDisplayed={2}
+            // forcePage={pageNumbers}
           />
-          
         </div>
       </div>
     </div>
