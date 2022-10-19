@@ -1,4 +1,4 @@
-.Projects{ 
+.Projects {
   background-color: #FAF9F6;
 }
 
@@ -24,7 +24,7 @@ h1 {
 }
 
 .inpSrch {
-  width: 60%;
+  width: 100%;
   margin-top: 2rem;
   display: flex;
   align-items: center;

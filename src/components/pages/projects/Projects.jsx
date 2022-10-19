@@ -22,7 +22,7 @@ function Projects() {
 
   useEffect(() => {
     axios
-      .get("https://6336d4765327df4c43ca66a2.mockapi.io/projects")
+      .get("http://localhost:8000/projects")
       .then((res) => {
         console.log(res);
         setProjects(res.data);
@@ -30,7 +30,7 @@ function Projects() {
       .catch((err) => {
         console.log(err);
       });
-  });
+  },[]);
 
   // const __handleSearch = (event) => {
   //   setSearch(event.target.value);
