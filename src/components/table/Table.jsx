@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,46 +6,53 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import axios from 'axios';
+import './Table.css'
 
-function createData(name, lastName,email, age, sexe) {
-  return {name, lastName, email, age, sexe};
-}
 
-const rows = [
-  createData('Frozen', 'Salim', 'frozen.mail@gmail.com', 35,'Male' ),
-  createData('Sandwich', 'Hamid', 'hamid.san00@gmail.com', 22, 'Male'),
-  createData('Eclair', 'Karim', 'karim.wez33@gmail.com', 33,'Male'),
-  createData('Cupcake', 'Sanae', 'sand.cup77@gmail.com', 25, 'Female'),
-];
 
 export default function BasicTable() {
+    //get data from api 'axios'
+
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+      axios
+        .get("http://localhost:8000/users")
+        .then((res) => {
+          console.log(res);
+          setUsers(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
 
   return (
     <div className="table">
-      
     <TableContainer component={Paper}
     style={{boxShadow:'0 13px 20px 0 #00808029'}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">LastName</TableCell>
-            <TableCell align="left">Age</TableCell>
+            <TableCell align="left">#ID</TableCell>
+            <TableCell align="left">First Name</TableCell>
+            <TableCell align="left">Last Name</TableCell>
             <TableCell align="left">Email</TableCell>
             <TableCell align="left">Sexe</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {users.map((user) => (
             <TableRow
-              key={row.name}
+              key={user.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.lastName}</TableCell>
-              <TableCell align="left">{row.age}</TableCell>
-              <TableCell align="left">{row.email}</TableCell>
-              <TableCell align="left">{row.sexe}</TableCell>
+              <TableCell align="left">{user.id}</TableCell>
+              <TableCell align="left">{user.first_name}</TableCell>
+              <TableCell align="left">{user.last_name}</TableCell>
+              <TableCell align="left">{user.email}</TableCell>
+              <TableCell align="left">{user.Sexe}</TableCell>
             </TableRow>
           ))}
         </TableBody>
