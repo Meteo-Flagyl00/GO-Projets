@@ -57,13 +57,8 @@ const RegistrationForm = ({handleClose}) => {
 
   const getClients = (e) => {
       e.preventDefault();
-      axios.post("http://localhost:8000/users", {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        phone: user.phone,
-        nationality: user.nationality
-      }).then(()=>{
+      axios.post("http://localhost:8000/users", user)
+      .then(()=>{
         handleClose()
       })
     };
