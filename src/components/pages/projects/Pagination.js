@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { UilStepForward } from '@iconscout/react-unicons'
+import { UilPrevious } from '@iconscout/react-unicons'
 
 const Pagination = ({ ProjectsPerPage, totalProjects, paginate }) => {
+  const [currentPage, setCurrentPage] = useState(0)
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalProjects / ProjectsPerPage); i++) {
@@ -10,6 +13,18 @@ const Pagination = ({ ProjectsPerPage, totalProjects, paginate }) => {
   return (
     <nav>
       <ul className='pagination'>
+      {pageNumbers.includes(currentPage - 1) && (
+          <a
+            className="page-link"
+            onClick={() => {
+              setCurrentPage(currentPage - 1);
+              paginate(currentPage - 1);
+            }}
+          >
+            <UilPrevious/>
+          </a>
+        )}
+
         {pageNumbers.map(number => (
           <li key={number} className='page-item'>
             <a onClick={() => paginate(number)} className='page-link'>
@@ -17,6 +32,19 @@ const Pagination = ({ ProjectsPerPage, totalProjects, paginate }) => {
             </a>
           </li>
         ))}
+        
+        {pageNumbers.includes(currentPage + 1) && (
+          <a
+            className="page-link"
+            onClick={() => {
+              setCurrentPage(currentPage + 1);
+              paginate(currentPage + 1);
+            }}
+          >
+            <UilStepForward/>
+          </a>
+        )}
+
       </ul>
     </nav>
   );
