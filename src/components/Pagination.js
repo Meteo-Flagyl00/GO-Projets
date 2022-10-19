@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { UilStepForward } from '@iconscout/react-unicons'
+import { UilPrevious } from '@iconscout/react-unicons'
 
 const Pagination = ({ UsersPerPage, totalUsers, paginate }) => {
   const [currentPage, setCurrentPage] = useState(0)
@@ -19,7 +21,7 @@ const Pagination = ({ UsersPerPage, totalUsers, paginate }) => {
               paginate(currentPage - 1);
             }}
           >
-            prev
+            <UilPrevious/>
           </a>
         )}
 
@@ -38,7 +40,7 @@ const Pagination = ({ UsersPerPage, totalUsers, paginate }) => {
               paginate(currentPage + 1);
             }}
           >
-            next
+            <UilStepForward/>
           </a>
         )}
       </ul>
