@@ -1,17 +1,13 @@
-import React, {useState, useEffect} from 'react'
-import {Link, useParams} from 'react-router-dom'
-import axios from 'axios';
-import './Invoice.css'
-import { Button } from 'react-bootstrap';
-import logo from '../../../imgs/logoProject.png'
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import "./Invoice.css";
+import { Button } from "react-bootstrap";
+import logo from "../../../imgs/logoProject.png";
 
 import { Table } from "react-bootstrap";
 
-
 function Invoice() {
-
-
-
   const [factures, setFactures] = useState({
     Proj: "",
     Client: "",
@@ -19,51 +15,47 @@ function Invoice() {
     SDate: "",
     DDate: "",
   });
-  
-  const {id} = useParams();
+
+  const { id } = useParams();
 
   useEffect(() => {
     loadFact();
   }, []);
- 
+
   const loadFact = async () => {
     const result = await axios.get(`http://localhost:8000/facture/${id}`);
     setFactures(result.data);
   };
 
   return (
-    <div className="overflow-scroll" id='print-this'>
+    <div className="overflow-scroll" id="print-this">
       <div className="page-content container">
         <div className="page-header text-blue-d2">
-          <img src={logo} alt="Project-Icon" width="150px" height="100px" />
+          <img
+            src={logo}
+            alt="Project-Icon"
+            width="150px"
+            height="100px"
+            className="img1"
+          />
           <h1 className="page-title text-secondary-d1">
             <small className="page-info">
               <i className="fa fa-angle-double-right text-80"></i>
             </small>
           </h1>
 
-          <div className="page-tools">
+          {/* <div className="page-tools">
             <div className="action-buttons">
               <Button
-                className="btn bg-white btn-light mx-1px text-95"
-                href="#"
-                data-title="Print"
-                variant=""
-                onClick={() => window.print()}
-              >
-                <i className="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
-                Print
-              </Button>
-              {/* <Button
                 className="btn bg-white btn-light mx-1px text-95"
                 href="#"
                 data-title="PDF"
               >
                 <i className="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
                 Export
-              </Button> */}
+              </Button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="container px-0">
@@ -82,12 +74,12 @@ function Invoice() {
 
               <div className="row">
                 <div className="col-sm-6">
-                  <div className='inline-block'>
+                  <div className="inline-block">
                     <span className="text-sm text-grey-m2 align-middle">
-                      To:  
+                      To:
                     </span>
                     <span className="text-600 text-110 text-blue align-middle">
-                       {factures.Client}
+                      {factures.Client}
                     </span>
                   </div>
                   <div className="text-grey-m2">
@@ -109,12 +101,14 @@ function Invoice() {
 
                     <div className="my-2">
                       <i className="fa fa-circle text-blue-m2 text-xs mr-1"></i>{" "}
-                      <span className="text-600 text-90">ID:</span> #{factures.id}
+                      <span className="text-600 text-90">ID:</span> #
+                      {factures.id}
                     </div>
 
                     <div className="my-2">
                       <i className="fa fa-circle text-blue-m2 text-xs mr-1"></i>{" "}
-                      <span className="text-600 text-90">Issue Date:</span> {factures.DDate}
+                      <span className="text-600 text-90">Issue Date:</span>{" "}
+                      {factures.DDate}
                     </div>
 
                     <div className="my-2">
@@ -267,17 +261,61 @@ function Invoice() {
 
                 <hr />
 
-                <div className="block bottom-1 right-10">
+                <div className="pay-back">
                   {/* <span className="text-secondary-d1 text-105">
                     Thank you for your business
                   </span> */}
-                  <a
-                    href="#"
+                  <Link className="btn btn-primary my-2" to={`/Facture`}>
+                    {" "}
+                    Back to Home
+                  </Link>
+
+                  <Button
                     className="btn btn-primary my-2"
+                    href="#"
+                    data-title="Print"
+                    variant=""
+                    onClick={() => window.print()}
                   >
+                    <i className="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
+                    Print
+                  </Button>
+
+                  <a href="#" className="btn btn-primary my-2">
                     Pay Now
                   </a>
-                  <Link className="btn btn-primary my-2" to={`/Facture`}> Back to Home</Link>
+                </div>
+              </div>
+
+              <div className="footer">
+                <div className="fo-1">
+                  <h5>Contact Us:</h5>
+
+                  <li>
+                    <span>Phone: </span> +212 6644 35967
+                  </li>
+                  <li>
+                    <span>Email: </span> contact@algolus.ma
+                  </li>
+                  <li>
+                    <span>Address: </span> Bd Med V Immeuble KERKOUR El Miaad
+                    1er Étage, Nr 5 Oujda{" "}
+                  </li>
+                </div>
+                <div className="fo-2">
+                  <h5>Payment Method:</h5>
+                  <li>
+                    <span>Paypal: </span> paypal@paypal.com
+                  </li>
+                  <li>
+                    <span>Banque: </span> CIH
+                  </li>
+                  <li></li>
+                  <li></li>
+                </div>
+
+                <div className="fo-3">
+                  <h5>Signature: </h5>
                 </div>
               </div>
             </div>
@@ -288,4 +326,4 @@ function Invoice() {
   );
 }
 
-export default Invoice
+export default Invoice;
