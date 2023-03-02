@@ -12,15 +12,15 @@ import NewFacture from "./components/pages/NewFacture/NewFacture";
 import RegistrationForm from "./components/editClient/editClientInd";
 import ViewClient from "./components/pages/viewClient/ViewClient";
 import Invoice from "./components/pages/factInvoice/Invoice";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 function App() {
-  const TRACKING_ID = "UA-XXXXX-X"; // OUR_TRACKING_ID
-  ReactGA.initialize(TRACKING_ID);
+  // const TRACKING_ID = "UA-XXXXX-X"; // OUR_TRACKING_ID
+  // ReactGA.initialize(TRACKING_ID);
   return (
     <div className="App">
       <div className="AppGlass">
-        <Sidebar />
+        <Sidebar /> 
         <Routes>
           <Route path="/" element={<MainDash />} />
           <Route path="/Clients" element={<Clients />} />
