@@ -16,7 +16,7 @@ const RegistrationForm = () => {
   //   const passwordRegExp =
   //     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   //   const CIN = /^[A-Z][A-Z][0-9]/;
- 
+
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -47,8 +47,6 @@ const RegistrationForm = () => {
     await axios.put(`http://localhost:8000/users/${id}`, user);
     Navigate("/Clients");
   };
-
-
 
   const loadUser = async () => {
     const result = await axios.get(`http://localhost:8000/users/${id}`);

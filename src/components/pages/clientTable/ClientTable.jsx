@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { UilTrash, UilEye, UilEllipsisH } from "@iconscout/react-unicons";
 
 import Button from "react-bootstrap/Button";
@@ -35,11 +35,9 @@ function ClientTable({ users }) {
   });
 
   //delete request with axios
-
-  const loadUser = async () => {
-    const result = await axios.get(
-      `http://localhost:8000/users/${id}`
-    );
+  const loadUser =  () => {
+    const result = axios.get(
+      'http://localhost:8000/users/'+id);
     setUser(result.data);
   };
 
@@ -52,9 +50,6 @@ function ClientTable({ users }) {
     loadUser();
   };
 
-  useEffect(()=>{
-    handleClick(id)
-  },[])
   
 
   const [search, setSearch] = useState("");
@@ -79,8 +74,53 @@ function ClientTable({ users }) {
   //   setOpen(false);
   // };
 
+  // const [collection, setCollection] = useState(
+  //   cloneDeep(allData.slice(0, countPerPage))
+  // );
+  // const searchData = useRef(
+  //   throttle(val => {
+  //     const query = val.toLowerCase();
+  //     setCurrentPage(1);
+  //     const data = cloneDeep(
+  //       allData
+  //         .filter(item => item.name.toLowerCase().indexOf(query) > -1)
+  //         .slice(0, countPerPage)
+  //     );
+  //     setCollection(data);
+  //   }, 400)
+  // );
+
+  // React.useEffect(() => {
+  //   if (!value) {
+  //     updatePage(1);
+  //   } else {
+  //     searchData.current(value);
+  //   }
+  // }, [value]);
+
+  // const updatePage = p => {
+  //   setCurrentPage(p);
+  //   const to = countPerPage * p;
+  //   const from = to - countPerPage;
+  //   setCollection(cloneDeep(allData.slice(from, to)));
+  // };
+
+  // search
+  //   const __handleSearch = (event) => {
+  //   setSearch(event.target.value);
+  //   if (event.target.value !== "") {
+  //     let search_results = factures.filter((item) =>
+  //       // item.ProjectName.toLowerCase().includes(search.toLowerCase()) ||
+  //       item.Client.toLowerCase().includes(search.toLowerCase())
+  //     );
+  //     setFactures(search_results);
+  //   } else {
+  //     setFactures([]);
+  //   }
+  // };
+  
   return (
-    <div>
+    <div className="cl">
       <div className="btnAddCl">
         <BtnAddClient />
         <div className="inpSearch">

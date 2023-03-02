@@ -46,10 +46,12 @@ const BootstrapDialogTitle = (props) => {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
+  open:PropTypes.bool.isRequired,
+  handleClickOpen:PropTypes.func.isRequired,
+  handleClose:PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs({children,title}) {
+export default function CustomizedDialogs({children,title,open,handleClickOpen,handleClose}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

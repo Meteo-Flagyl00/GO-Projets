@@ -10,6 +10,7 @@ import RegistrationForm from "../../../editProject/editProInd";
 import BtnAddProject from "../../projects/btnAddProj/BtnAddProject";
 
 import "./ProjectTable.css";
+import { Link } from "react-router-dom";
 
 function ProjectTable({ projects }) {
   const popover = (
@@ -36,16 +37,16 @@ function ProjectTable({ projects }) {
 
   // DEl client button
 
-  // const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-  // const handleClose = () => setShow(false);
+  const handleClose = () => setShow(false);
 
-  // const handleShow = (e) => {
-  //   e.preventDefault();
-  //   setShow(true);
-  // };
+  const handleShow = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
   return (
-    <div>
+    <div className="prtb">
       <div className="inpSrch">
         <BtnAddProject />
         <div className="project-search">
@@ -87,7 +88,7 @@ function ProjectTable({ projects }) {
               .map((project, index) => (
                 <tr key={index}>
                   <td>
-                    <span>{project.idProj}</span>
+                    <span>{project.id}</span>
                   </td>
                   <td>
                     <span>{project.ProjectName}</span>
@@ -113,13 +114,26 @@ function ProjectTable({ projects }) {
                   </td>
                   <td>
                     <span>
-                      <input ref={ref} type="file" />
+                      {/* <button style={{border: "none"}}> */}
+                      <input
+                        ref={ref}
+                        type="file"
+                        // style={{display: "none"}}
+                      />
+                      {/* <Button 
+                       variant="" style={{}} 
+                      //  onClick={() => this.ref.fileInput.click()}
+                       >add</Button>  */}
+                      {/* </button> */}
 
-                      <button className="btnUserEdi">
+                      <Link
+                        className="btnUserEdi"
+                        to={`/Projects/${project.id}`}
+                      >
                         <CustomizedDialogs title={"Edit Project"}>
                           <RegistrationForm />
                         </CustomizedDialogs>
-                      </button>
+                      </Link>
 
                       <button className="btnUserVie">
                         <OverlayTrigger
